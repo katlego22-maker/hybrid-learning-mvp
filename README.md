@@ -5,7 +5,7 @@
 ---
 
 ## 🌐 Live Demo  
-👉 **[View the Live Site](https://github.com/katlego22-maker/hybrid-learning-mvp)**  
+👉 **[View the Live Site](https://katlego22-maker.github.io/hybrid-learning-mvp/)**  
 
 ---
 
