@@ -2,7 +2,6 @@
 const nav = document.querySelector('.nav-links');
 const navbar = document.querySelector('.navbar');
 
-// Create a menu button for mobile
 const menuBtn = document.createElement('div');
 menuBtn.classList.add('menu-btn');
 menuBtn.innerHTML = '☰';
@@ -14,15 +13,15 @@ menuBtn.addEventListener('click', () => {
   nav.style.alignItems = 'center';
 });
 
-// === Contact Form Validation ===
-const form = document.querySelector('form');
+// === Contact Form Validation + Formspree Submission ===
+const contactForm = document.querySelector('form[action*="formspree.io"]');
 
-form.addEventListener('submit', (e) => {
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  const name = form.querySelector('input[type="text"]').value.trim();
-  const email = form.querySelector('input[type="email"]').value.trim();
-  const message = form.querySelector('textarea').value.trim();
+  const name = contactForm.querySelector('input[name="name"]').value.trim();
+  const email = contactForm.querySelector('input[name="email"]').value.trim();
+  const message = contactForm.querySelector('textarea[name="message"]').value.trim();
 
   if (!name || !email || !message) {
     alert('⚠️ Please fill in all fields before sending your message.');
@@ -34,6 +33,36 @@ form.addEventListener('submit', (e) => {
     return;
   }
 
-  alert('✅ Message sent successfully! (This is a demo alert — backend not yet connected.)');
-  form.reset();
+  // Send to Formspree
+  const data = new FormData(contactForm);
+  try {
+    const res = await fetch(contactForm.action, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      alert('✅ Message sent successfully! Thank you for reaching out.');
+      contactForm.reset();
+    } else {
+      const json = await res.json();
+      alert(json.error || '❌ Error sending message.');
+    }
+  } catch (err) {
+    alert('❌ Network error.');
+  }
 });
+
+// === Fade-in on scroll using IntersectionObserver ===
+(function () {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+})();

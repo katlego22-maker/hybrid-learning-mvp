@@ -210,3 +210,32 @@ button.btn:hover {
     flex-wrap: wrap;
   }
 }
+/* Animation */
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 600ms ease, transform 600ms ease;
+  will-change: opacity, transform;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Optional slight stagger container */
+.stagger > * {
+  transition-delay: var(--delay, 0ms);
+}
+/* Staggered fade-in delays */
+.feature-cards .card:nth-child(1) {
+  transition-delay: 50ms;
+}
+
+.feature-cards .card:nth-child(2) {
+  transition-delay: 150ms;
+}
+
+.feature-cards .card:nth-child(3) {
+  transition-delay: 250ms;
+}
