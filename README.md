@@ -6,7 +6,6 @@
 
 ## 🌐 Live Demo  
 👉 **[View the Live Site](https://github.com/katlego22-maker/hybrid-learning-mvp)**  
-*(Replace `your-username` with your actual GitHub username after publishing.)*
 
 ---
 
